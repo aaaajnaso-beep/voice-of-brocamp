@@ -96,10 +96,18 @@ const DashboardStudent = () => {
   };
 
   const fetchTopComplainer = async () => {
-    const { data, error } = await supabase.rpc("get_top_complainer");
+    const { data, error } = await supabase
+      .from("profiles")
+      .select(`
+        full_name,
+        complaints:complaints(count)
+      `)
+      .order("complaints.count", { ascending: false })
+      .limit(1)
+      .single();
     
-    if (!error && data && data.length > 0) {
-      setTopComplainer(data[0].full_name);
+    if (!error && data) {
+      setTopComplainer(data.full_name);
     }
   };
 
