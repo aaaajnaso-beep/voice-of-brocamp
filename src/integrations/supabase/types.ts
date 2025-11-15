@@ -91,6 +91,13 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_top_complainer: {
+        Args: never
+        Returns: {
+          complaint_count: number
+          full_name: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
