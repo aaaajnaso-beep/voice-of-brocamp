@@ -117,12 +117,7 @@ const DashboardAdmin = () => {
   const fetchComplaints = async () => {
     const { data, error } = await supabase
       .from("complaints")
-      .select(`
-        *,
-        profiles (
-          full_name
-        )
-      `)
+      .select("*")
       .order("created_at", { ascending: false });
 
     if (error) {
@@ -131,10 +126,28 @@ const DashboardAdmin = () => {
         title: "Error",
         description: "Failed to load complaints",
       });
-    } else {
-      setComplaints(data || []);
-      setFilteredComplaints(data || []);
+      return;
     }
+
+    // Fetch profiles separately to avoid type issues
+    const userIds = [...new Set(data?.map(c => c.user_id) || [])];
+    const { data: profilesData } = await supabase
+      .from("profiles")
+      .select("id, full_name")
+      .in("id", userIds);
+
+    // Map profiles to complaints
+    const profilesMap = new Map(
+      profilesData?.map(p => [p.id, p]) || []
+    );
+
+    const complaintsWithProfiles = (data || []).map(complaint => ({
+      ...complaint,
+      profiles: profilesMap.get(complaint.user_id) || null
+    }));
+
+    setComplaints(complaintsWithProfiles as Complaint[]);
+    setFilteredComplaints(complaintsWithProfiles as Complaint[]);
   };
 
   const fetchTopComplainer = async () => {
