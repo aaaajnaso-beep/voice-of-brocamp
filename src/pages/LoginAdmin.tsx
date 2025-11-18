@@ -67,6 +67,19 @@ const LoginAdmin = () => {
         throw new Error("Failed to assign admin privileges");
       }
 
+      // Verify role was assigned successfully
+      const { data: roleData, error: roleCheckError } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", data.user.id)
+        .eq("role", "admin")
+        .single();
+
+      if (roleCheckError || !roleData) {
+        console.error("Role verification failed:", roleCheckError);
+        throw new Error("Failed to verify admin privileges");
+      }
+
       toast({
         title: "Welcome Admin!",
         description: "You've successfully logged in.",
