@@ -52,18 +52,14 @@ const LoginAdmin = () => {
 
       if (!data.user) throw new Error("Authentication failed");
 
-      // Check if user has admin role, if not assign it
-      const { data: roleData } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", data.user.id)
-        .single();
+      // Assign admin role using secure RPC function
+      const { error: roleError } = await supabase.rpc("assign_admin_role", {
+        _user_id: data.user.id,
+      });
 
-      if (!roleData || roleData.role !== "admin") {
-        // Assign admin role
-        await supabase
-          .from("user_roles")
-          .upsert({ user_id: data.user.id, role: "admin" });
+      if (roleError) {
+        console.error("Role assignment error:", roleError);
+        throw new Error("Failed to assign admin privileges");
       }
 
       toast({
