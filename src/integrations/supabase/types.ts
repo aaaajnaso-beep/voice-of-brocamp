@@ -99,6 +99,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      assign_admin_role: { Args: { _user_id: string }; Returns: undefined }
       get_top_complainer: {
         Args: never
         Returns: {
