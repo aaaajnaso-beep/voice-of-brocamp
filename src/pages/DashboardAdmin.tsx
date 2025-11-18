@@ -76,9 +76,10 @@ const DashboardAdmin = () => {
         .from("user_roles")
         .select("role")
         .eq("user_id", session.user.id)
-        .single();
+        .eq("role", "admin")
+        .maybeSingle();
 
-      if (roles?.role !== "admin") {
+      if (!roles || roles.role !== "admin") {
         toast({
           variant: "destructive",
           title: "Access Denied",
