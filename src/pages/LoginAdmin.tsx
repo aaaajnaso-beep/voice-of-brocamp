@@ -20,6 +20,11 @@ const LoginAdmin = () => {
     setLoading(true);
 
     try {
+      // Check if using admin email
+      if (email !== "brovoices@brocamp.com") {
+        throw new Error("Only brovoices@brocamp.com can access admin login");
+      }
+
       // Check if using admin password
       if (password !== "brototype@123") {
         throw new Error("Invalid admin password");
