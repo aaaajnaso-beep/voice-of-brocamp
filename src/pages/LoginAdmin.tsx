@@ -20,23 +20,50 @@ const LoginAdmin = () => {
     setLoading(true);
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      // Check if using admin password
+      if (password !== "brototype@123") {
+        throw new Error("Invalid admin password");
+      }
+
+      // Try to sign in first
+      let { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (error) throw error;
+      // If user doesn't exist, sign them up
+      if (error?.message?.includes("Invalid login credentials")) {
+        const signUpResult = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              full_name: "Admin",
+            },
+            emailRedirectTo: `${window.location.origin}/dashboard-admin`,
+          },
+        });
 
-      // Check if user has admin role
+        if (signUpResult.error) throw signUpResult.error;
+        data = signUpResult.data;
+      } else if (error) {
+        throw error;
+      }
+
+      if (!data.user) throw new Error("Authentication failed");
+
+      // Check if user has admin role, if not assign it
       const { data: roleData } = await supabase
         .from("user_roles")
         .select("role")
         .eq("user_id", data.user.id)
         .single();
 
-      if (roleData?.role !== "admin") {
-        await supabase.auth.signOut();
-        throw new Error("You do not have admin privileges.");
+      if (!roleData || roleData.role !== "admin") {
+        // Assign admin role
+        await supabase
+          .from("user_roles")
+          .upsert({ user_id: data.user.id, role: "admin" });
       }
 
       toast({
