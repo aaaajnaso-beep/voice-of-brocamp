@@ -96,31 +96,15 @@ const DashboardStudent = () => {
   };
 
   const fetchTopComplainer = async () => {
-    // Get all complaints with user profiles
-    const { data: complaintsData } = await supabase
-      .from("complaints")
-      .select("user_id, profiles(full_name)");
+    const { data, error } = await supabase.rpc("get_top_complainer");
 
-    if (complaintsData && complaintsData.length > 0) {
-      // Count complaints per user
-      const complaintCounts = complaintsData.reduce((acc: any, complaint: any) => {
-        const userId = complaint.user_id;
-        const userName = complaint.profiles?.full_name || "Unknown";
-        acc[userId] = {
-          name: userName,
-          count: (acc[userId]?.count || 0) + 1
-        };
-        return acc;
-      }, {});
+    if (error) {
+      console.error("Error fetching top complainer:", error);
+      return;
+    }
 
-      // Find user with most complaints
-      const topUser = Object.values(complaintCounts).reduce((max: any, user: any) => 
-        user.count > (max?.count || 0) ? user : max
-      , null);
-
-      if (topUser) {
-        setTopComplainer((topUser as any).name);
-      }
+    if (data && data.length > 0) {
+      setTopComplainer(data[0].full_name);
     }
   };
 
