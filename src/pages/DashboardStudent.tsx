@@ -12,6 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { z } from "zod";
+import dashboardBg from "@/assets/dashboard-bg.png";
 
 const complaintSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters").max(100, "Title too long"),
@@ -175,19 +176,29 @@ const DashboardStudent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative">
+      {/* Background Image */}
+      <div className="fixed inset-0 z-0">
+        <img 
+          src={dashboardBg} 
+          alt="Dashboard Background" 
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+      </div>
+
       {/* Header */}
-      <header className="border-b border-border p-4">
+      <header className="relative z-10 border-b border-white/20 bg-black/30 backdrop-blur-sm p-4">
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center gap-4">
-            <p className="text-sm text-muted-foreground">Brototype</p>
-            <p className="font-medium">{profile?.full_name || "Student"}</p>
+            <p className="text-sm text-white/70">Brototype</p>
+            <p className="font-medium text-white">{profile?.full_name || "Student"}</p>
           </div>
           <div className="flex items-center gap-4">
-            <div className="text-sm">
+            <div className="text-sm text-white">
               🏆 Most Complaints By: <span className="font-medium">{topComplainer || "N/A"}</span>
             </div>
-            <Button variant="outline" size="sm" onClick={handleLogout}>
+            <Button variant="outline" size="sm" onClick={handleLogout} className="bg-white text-black hover:bg-white/90">
               Logout
             </Button>
           </div>
@@ -195,10 +206,10 @@ const DashboardStudent = () => {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto p-4 md:p-8">
+      <main className="relative z-10 container mx-auto p-4 md:p-8">
         <div className="space-y-6">
           <div className="flex justify-between items-center">
-            <h1 className="text-3xl font-bold">My Complaints</h1>
+            <h1 className="text-3xl font-bold text-white">My Complaints</h1>
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
                 <Button>+ Submit Complaint</Button>
@@ -253,13 +264,13 @@ const DashboardStudent = () => {
 
           {/* Complaints List */}
           {complaints.length === 0 ? (
-            <div className="border border-border rounded-lg p-8 text-center text-muted-foreground">
+            <div className="border border-white/20 bg-white/10 backdrop-blur-sm rounded-lg p-8 text-center text-white">
               <p>No complaints yet. Click "Submit Complaint" to get started.</p>
             </div>
           ) : (
             <div className="grid gap-4">
               {complaints.map((complaint) => (
-                <Card key={complaint.id} className="hover:shadow-md transition-shadow">
+                <Card key={complaint.id} className="bg-white/95 backdrop-blur-sm hover:shadow-xl transition-shadow border-white/30">
                   <CardHeader>
                     <div className="flex justify-between items-start">
                       <div className="space-y-1">
