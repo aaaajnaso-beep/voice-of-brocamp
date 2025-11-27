@@ -31,7 +31,7 @@ const LandingPage = () => {
         </div>
 
         {/* Login Buttons */}
-        <div className="flex flex-col sm:flex-row gap-6 justify-center pt-4 animate-in slide-in-from-bottom duration-700 delay-150">
+        <div className="flex flex-col sm:flex-row gap-6 justify-center pt-16 animate-in slide-in-from-bottom duration-700 delay-150">
           <Button
             size="lg"
             onClick={() => navigate("/login-student")}
@@ -44,7 +44,7 @@ const LandingPage = () => {
             size="lg"
             variant="outline"
             onClick={() => navigate("/login-admin")}
-            className="w-full sm:w-auto text-lg px-12 py-6 h-auto transition-all hover:scale-105 shadow-2xl hover:shadow-xl border-2 border-white text-white hover:bg-white/10 group"
+            className="w-full sm:w-auto text-lg px-12 py-6 h-auto transition-all hover:scale-105 shadow-2xl hover:shadow-xl border-2 border-white bg-black/30 text-white hover:bg-black/50 group"
           >
             Login as Admin
             <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
