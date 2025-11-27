@@ -14,6 +14,7 @@ import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { Search, TrendingUp, Clock, CheckCircle2 } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
+import dashboardBg from "@/assets/dashboard-bg.png";
 
 type Complaint = {
   id: string;
@@ -275,38 +276,48 @@ const DashboardAdmin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b border-border bg-card">
+    <div className="min-h-screen relative">
+      {/* Background Image */}
+      <div className="fixed inset-0 z-0">
+        <img 
+          src={dashboardBg} 
+          alt="Dashboard Background" 
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+      </div>
+
+      <header className="relative z-10 border-b border-white/20 bg-black/30 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="text-2xl font-bold text-foreground">Voices of Brocamp</div>
-            <Badge variant="secondary" className="text-xs">Admin</Badge>
+            <div className="text-2xl font-bold text-white">Voices of Brocamp</div>
+            <Badge variant="secondary" className="text-xs bg-white/90 text-black">Admin</Badge>
           </div>
           <div className="flex items-center gap-4">
-            <div className="text-sm text-muted-foreground">
+            <div className="text-sm text-white">
               {profile?.full_name || "Admin"}
             </div>
-            <div className="flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-lg">
-              <TrendingUp className="h-4 w-4 text-primary" />
-              <span className="text-xs text-muted-foreground">Most Active:</span>
-              <span className="text-sm font-bold text-primary">{topComplainer || "Loading..."}</span>
+            <div className="flex items-center gap-2 px-4 py-2 bg-white/20 border border-white/30 rounded-lg backdrop-blur-sm">
+              <TrendingUp className="h-4 w-4 text-white" />
+              <span className="text-xs text-white/80">Most Active:</span>
+              <span className="text-sm font-bold text-white">{topComplainer || "Loading..."}</span>
             </div>
-            <Button variant="outline" onClick={handleLogout}>
+            <Button variant="outline" onClick={handleLogout} className="bg-white text-black hover:bg-white/90">
               Logout
             </Button>
           </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="relative z-10 container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground mb-2">Admin Dashboard</h1>
-          <p className="text-muted-foreground">Manage and resolve student complaints</p>
+          <h1 className="text-3xl font-bold text-white mb-2">Admin Dashboard</h1>
+          <p className="text-white/80">Manage and resolve student complaints</p>
         </div>
 
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <Card>
+          <Card className="bg-white/95 backdrop-blur-sm border-white/30">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-sm font-medium text-muted-foreground">Total Complaints</CardTitle>
@@ -318,7 +329,7 @@ const DashboardAdmin = () => {
               <p className="text-xs text-muted-foreground mt-1">All time</p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-white/95 backdrop-blur-sm border-white/30">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-sm font-medium text-muted-foreground">Solved</CardTitle>
@@ -330,7 +341,7 @@ const DashboardAdmin = () => {
               <p className="text-xs text-muted-foreground mt-1">{resolutionRate}% resolution rate</p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-white/95 backdrop-blur-sm border-white/30">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-sm font-medium text-muted-foreground">In Progress</CardTitle>
@@ -342,7 +353,7 @@ const DashboardAdmin = () => {
               <p className="text-xs text-muted-foreground mt-1">Being handled</p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-white/95 backdrop-blur-sm border-white/30">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-sm font-medium text-muted-foreground">Pending</CardTitle>
@@ -358,7 +369,7 @@ const DashboardAdmin = () => {
 
         {/* Analytics Section */}
         {categoryData.length > 0 && (
-          <Card className="mb-8">
+          <Card className="mb-8 bg-white/95 backdrop-blur-sm border-white/30">
             <CardHeader>
               <CardTitle>Complaint Categories Breakdown</CardTitle>
               <CardDescription>Distribution of complaints by category</CardDescription>
@@ -416,13 +427,13 @@ const DashboardAdmin = () => {
           </div>
 
           {filteredComplaints.length === 0 ? (
-            <Card>
+            <Card className="bg-white/95 backdrop-blur-sm border-white/30">
               <CardContent className="p-8 text-center text-muted-foreground">
                 <p>No complaints to display.</p>
               </CardContent>
             </Card>
           ) : (
-            <Card>
+            <Card className="bg-white/95 backdrop-blur-sm border-white/30">
               <CardContent className="p-0">
                 <Table>
                   <TableHeader>
