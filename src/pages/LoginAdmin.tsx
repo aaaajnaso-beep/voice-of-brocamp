@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Loader2, Shield } from "lucide-react";
+import dashboardBg from "@/assets/dashboard-bg.png";
 
 const LoginAdmin = () => {
   const navigate = useNavigate();
@@ -97,18 +98,30 @@ const LoginAdmin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <div className="w-full max-w-md space-y-6">
+    <div className="min-h-screen relative flex items-center justify-center p-4">
+      {/* Background Image */}
+      <div
+        className="fixed inset-0 z-0"
+        style={{
+          backgroundImage: `url(${dashboardBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/60" />
+      </div>
+      <div className="w-full max-w-md space-y-6 relative z-10">
         <Button
           variant="ghost"
           onClick={() => navigate("/")}
-          className="mb-4"
+          className="mb-4 bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Home
         </Button>
 
-        <Card className="border-2 border-primary/20 shadow-lg transition-all hover:shadow-xl">
+        <Card className="border-2 border-primary/20 shadow-lg transition-all hover:shadow-xl bg-white/95 backdrop-blur-sm">
           <CardHeader className="space-y-1">
             <div className="flex items-center gap-2">
               <Shield className="h-6 w-6 text-primary" />
