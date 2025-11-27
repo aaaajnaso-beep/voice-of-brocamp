@@ -245,7 +245,7 @@ const DashboardStudent = () => {
                         <SelectValue placeholder="Select a category" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Hostel">Hostel</SelectItem>
+                        <SelectItem value="Hub">Hub</SelectItem>
                         <SelectItem value="Mentor">Mentor</SelectItem>
                         <SelectItem value="Technical">Technical</SelectItem>
                         <SelectItem value="Placement">Placement</SelectItem>
