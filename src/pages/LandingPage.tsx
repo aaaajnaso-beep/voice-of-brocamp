@@ -44,7 +44,7 @@ const LandingPage = () => {
             size="lg"
             variant="outline"
             onClick={() => navigate("/login-admin")}
-            className="w-full sm:w-auto text-lg px-12 py-6 h-auto transition-all hover:scale-105 shadow-2xl hover:shadow-xl border-2 border-white bg-black/30 text-white hover:bg-black/50 group"
+            className="w-full sm:w-auto text-lg px-12 py-6 h-auto transition-all hover:scale-105 shadow-2xl hover:shadow-xl border-2 border-white bg-white text-black hover:bg-white/90 group"
           >
             Login as Admin
             <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
