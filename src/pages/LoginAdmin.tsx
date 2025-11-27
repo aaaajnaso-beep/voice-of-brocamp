@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Loader2, Shield } from "lucide-react";
-import dashboardBg from "@/assets/dashboard-bg.png";
+import loginBg from "@/assets/login-bg.png";
 
 const LoginAdmin = () => {
   const navigate = useNavigate();
@@ -103,7 +103,7 @@ const LoginAdmin = () => {
       <div
         className="fixed inset-0 z-0"
         style={{
-          backgroundImage: `url(${dashboardBg})`,
+          backgroundImage: `url(${loginBg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
