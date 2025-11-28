@@ -31,7 +31,7 @@ const LandingPage = () => {
           <div className="flex gap-3 md:gap-4">
             <Button
               onClick={() => navigate("/login-student")}
-              className="bg-white text-black hover:bg-white/90 font-semibold px-6 py-2 rounded-lg shadow-lg"
+              className="bg-teal-500/30 text-white hover:bg-teal-500/40 font-semibold px-6 py-2 rounded-lg border border-white/30 backdrop-blur-sm shadow-lg"
             >
               Login as Student
             </Button>
