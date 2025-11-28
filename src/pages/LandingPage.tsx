@@ -8,12 +8,15 @@ const LandingPage = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Gradient Background with Image */}
-      <div className="absolute inset-0 bg-gradient-to-br from-teal-400 via-cyan-500 to-blue-500">
+      {/* Gradient Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-teal-400 via-cyan-500 to-blue-500" />
+      
+      {/* Hero Image */}
+      <div className="absolute inset-0">
         <img 
           src={brocampHero} 
           alt="Brocamp Learning Environment" 
-          className="absolute right-0 top-0 h-full w-2/3 object-cover opacity-90 mask-gradient"
+          className="absolute right-0 top-0 h-full w-1/2 md:w-3/5 object-cover mask-gradient-left"
         />
       </div>
 
