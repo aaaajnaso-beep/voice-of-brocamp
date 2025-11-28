@@ -52,7 +52,7 @@ const LandingPage = () => {
               What honest feedback feels like inside Brocamp
             </h2>
             
-            <p className="text-xl md:text-2xl text-black font-light max-w-2xl">
+            <p className="text-xl md:text-2xl text-black font-medium max-w-2xl">
               Where Every Voice Matters — Your feedback shapes our community
             </p>
 
