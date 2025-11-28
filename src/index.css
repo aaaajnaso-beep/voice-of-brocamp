@@ -138,4 +138,25 @@ All colors MUST be HSL.
       transform: translateY(0);
     }
   }
+
+  .slide-in-from-left {
+    animation: slideInFromLeft 0.7s ease-out;
+  }
+
+  @keyframes slideInFromLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Gradient mask for hero image */
+  .mask-gradient-left {
+    mask-image: linear-gradient(to right, transparent 0%, black 30%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%);
+  }
 }
